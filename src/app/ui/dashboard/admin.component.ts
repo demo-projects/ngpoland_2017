@@ -1,17 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ListService} from './list.service';
 
 @Component({
   selector: 'admin',
   template: `
-    <p>
-      admin works!
-    </p>
+    <div class="container">
+      <pre>{{ list.items | json }}</pre>
+      <div class="row">
+        <div class="column">
+          <list></list>
+        </div>
+        <div class="column">
+          <list></list>
+        </div>
+      </div>
+    </div>
   `,
-  styles: []
+  styles  : []
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(public list: ListService) {
+  }
 
   ngOnInit() {
   }
