@@ -1,32 +1,39 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver} from '@angular/core';
 import {FormControl} from '@angular/forms';
+import {ModalComponent} from './modal.component';
 
 @Component({
   selector: 'sign-in',
-  styles: ['input.ng-invalid {border-color: red}'],
-  template: `
-      
-    <!--<input-box [formControl]="username"></input-box>  -->
+  styles  : ['input.ng-invalid {border-color: red}'],
+  template: `      
+    <h2>DEMO</h2>  
+    <input type="text" #input>
+    <button (click)="createComponent(input.value)">create</button> 
+    <button (click)="clearComponent()">destroy</button> 
     
-    <button (click)="submit()">send</button>
+    <ng-container #entry></ng-container>
     
-    <pre>{{ username.value | json}}</pre>
-    <pre>{{ username.valid | json}}</pre>
+      <!--<ng-container *ngComponentOutlet="dynmaicComponent"></ng-container>-->
       
   `,
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent  {
 
-  public username = new FormControl();
+  // dynmaicComponent = ModalComponent;
 
-  constructor() {
+  @ViewChild('entry', {read: ViewContainerRef})
+  public entry: ViewContainerRef;
+
+  constructor(private cfr:ComponentFactoryResolver) {}
+
+  createComponent(title: string) {
+    const _modalFactory =  this.cfr.resolveComponentFactory(ModalComponent);
+    const _componentRef = this.entry.createComponent(_modalFactory);
+
+    _componentRef.instance.title = title;
   }
 
-  ngOnInit() {
+  clearComponent(){
+    this.entry.clear();
   }
-
-  submit(){
-    console.log(this.username.value);
-  }
-
 }
