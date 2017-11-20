@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
+import {HttpLoggerModule} from './http-logger/http-logger.module';
+import {FLAG} from './http-logger/tokens';
 
 
 @NgModule({
@@ -12,7 +14,8 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpLoggerModule.setup(true),
   ],
   providers: [],
   bootstrap: [AppComponent]
