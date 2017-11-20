@@ -1,64 +1,31 @@
 import {Component} from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
-import {ControlConfig} from './dynamic-form/control';
 
 @Component({
   selector: 'app-root',
   template: `
-    <h1>Dynamic Forms</h1>
+    <h1>The Tabs</h1>
+    
+    <tabs>
 
-    <div class="container">
-      <div class="row">
-        <div class="column">
-
-          <form [formGroup]="creator"
-                (ngSubmit)="create()">
-            <input type="text"
-                   formControlName="label"
-                   placeholder="label">
-            <input type="text"
-                   formControlName="type"
-                   placeholder="type">
-            <input type="text"
-                   formControlName="name"
-                   placeholder="name">
-            <button type="submit">create</button>
-          </form>
-
-        </div>
-
-        <div class="column">
-          <pre>{{ creator.value | json }}</pre>
-        </div>
-
-        <div class="column">
-          <dynamic-form [controls]="controls"
-                        (onSent)="print($event)"></dynamic-form>
-        </div>
-
-
+      <div *tab="'tab 1'">
+        <h4>This is my tab</h4>
+        <p>content 1</p>
       </div>
-    </div>
+
+      <div *tab="'tab 2'">
+        <h4>This is my tab 2</h4>
+        <p>content 2</p>
+      </div>
+
+      <h4 *tab="'tab 3'"></h4>
+
+
+    </tabs>
 
 
   `,
 })
 export class AppComponent {
 
-  creator = new FormGroup({
-    label: new FormControl(),
-    type : new FormControl(),
-    name : new FormControl()
-  });
-
-  controls: ControlConfig[] = [];
-
-  create() {
-    this.controls = [this.creator.value];
-  }
-
-  print(v){
-    console.log(v);
-  }
 
 }
