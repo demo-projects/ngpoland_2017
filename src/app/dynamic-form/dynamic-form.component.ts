@@ -16,7 +16,11 @@ import {TextFieldComponent} from './controls/text-field.component';
 })
 export class DynamicFormComponent implements OnInit {
 
-  @Input() controls: ControlConfig[];
+  @Input()
+  set controls(controlConfig) {
+    this.build(controlConfig)
+  }
+
   @Output() onSent = new EventEmitter();
 
   @ViewChild('entry', {read: ViewContainerRef})
@@ -26,11 +30,13 @@ export class DynamicFormComponent implements OnInit {
 
   constructor(private cfr: ComponentFactoryResolver) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  build(controls) {
     this.dynamicForm = new FormGroup({});
     const controlFactory = this.cfr.resolveComponentFactory(TextFieldComponent);
 
-    this.controls.forEach( config => {
+    controls.forEach( config => {
       this.dynamicForm.addControl(config.name, new FormControl());
       const controlRef = this.entry.createComponent(controlFactory);
 

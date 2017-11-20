@@ -11,7 +11,7 @@ import { TextFieldComponent } from './controls/text-field.component';
   ],
   entryComponents: [TextFieldComponent],
   declarations: [DynamicFormComponent, TextFieldComponent],
-  exports     : [DynamicFormComponent]
+  exports     : [DynamicFormComponent, ReactiveFormsModule]
 })
 export class DynamicFormModule {
 }
