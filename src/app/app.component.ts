@@ -1,21 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   template: `      
-      <h1>Welcome to {{title}}!</h1>
-      <a routerLink="dashboard">dashboard</a>
-    <router-outlet></router-outlet>
+    <h1>Dynamic Forms</h1>
   `,
-  styles: []
 })
-export class AppComponent implements OnInit{
-  title = 'app';
+export class AppComponent {
 
-  constructor(private http: HttpClient) {}
-
-  ngOnInit(): void {
-    // this.http.get('').subscribe()
-  }
 }
