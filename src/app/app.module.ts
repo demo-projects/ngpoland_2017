@@ -15,8 +15,7 @@ import {FLAG} from './http-logger/tokens';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpLoggerModule.setup(true),
-  ],
+    HttpLoggerModule.setup(true),],
   providers: [{
     provide: APP_BOOTSTRAP_LISTENER,
     useValue: (cref) => console.log(cref),

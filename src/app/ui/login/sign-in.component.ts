@@ -1,19 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'sign-in',
+  styles: ['input.ng-invalid {border-color: red}'],
   template: `
-    <p>
-      sign-in works!
-    </p>
+      
+    <input-box [formControl]="username" required></input-box>  
+    
+    <button (click)="submit()">send</button>
+    
+    <pre>{{ username.value | json}}</pre>
+    <pre>{{ username.valid | json}}</pre>
+      
   `,
-  styles: []
 })
 export class SignInComponent implements OnInit {
 
-  constructor() { }
+  public username = new FormControl('NIR');
+
+  constructor() {
+  }
 
   ngOnInit() {
+  }
+
+  submit(){
+    console.log(this.username.value);
   }
 
 }
