@@ -6,7 +6,7 @@ import {FormControl} from '@angular/forms';
   styles: ['input.ng-invalid {border-color: red}'],
   template: `
       
-    <input-box [formControl]="username" required></input-box>  
+    <!--<input-box [formControl]="username"></input-box>  -->
     
     <button (click)="submit()">send</button>
     
@@ -17,7 +17,7 @@ import {FormControl} from '@angular/forms';
 })
 export class SignInComponent implements OnInit {
 
-  public username = new FormControl('NIR');
+  public username = new FormControl();
 
   constructor() {
   }

@@ -1,30 +1,38 @@
-import {Component, forwardRef} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR, Validator} from '@angular/forms';
+import {Component, forwardRef, Self, OnInit} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR, Validator, NG_VALIDATORS, NgControl, Validators} from '@angular/forms';
 
 @Component({
   selector : 'input-box',
-  providers: [
-    {
-      provide    : NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputBoxComponent),
-      multi      : true
-    }
-  ],
   template : `
-    <input type="text"
-           [value]="_value"
-           (input)="_onChange($event.target.value)"
-           placeholder="type..">
+    <button (click)="value = 'yes'">yes</button>
+    <button (click)="value = 'no'">no</button>
   `,
   styles   : []
 })
-export class InputBoxComponent implements ControlValueAccessor, Validator {
+export class InputBoxComponent implements OnInit, ControlValueAccessor, Validator {
 
   public _value: string;
   public _onChange = (_) => _;
+  public _disabled: boolean;
+
+  constructor(@Self() private ctrl: NgControl) {
+    this.ctrl.valueAccessor = this;
+  }
+
+  ngOnInit(): void {
+    const _control =  this.ctrl.control;
+    _control.setValidators(Validators.required);
+    _control.updateValueAndValidity();
+  }
 
   validate(control) {
-    return control.value === 'nir' ? null : {notnir: true};
+    console.log(control);
+    return control.value === 'yes' ? null : {notnir: true};
+  }
+
+  set value(v){
+    this._value = v;
+    this._onChange(this._value);
   }
 
   writeValue(obj: any): void {
@@ -36,7 +44,10 @@ export class InputBoxComponent implements ControlValueAccessor, Validator {
   }
 
   registerOnTouched(fn: any): void {
-
   }
 
+
+  setDisabledState(isDisabled: boolean): void {
+    this._disabled = isDisabled
+  }
 }
