@@ -1,9 +1,17 @@
 import {Component, OnInit, SkipSelf, Self} from '@angular/core';
 import {ListService} from './list.service';
 
+export abstract class UserList {
+  addItem(title: string) {};
+  get items(){return []};
+}
+
 @Component({
   selector : 'list',
-  providers: [ListService],
+  providers: [{
+    provide: UserList,
+    useExisting: ListService
+  }],
   template : `
     <input type="text"
            (keydown.enter)="addItem($event.target.value)">
@@ -14,7 +22,7 @@ import {ListService} from './list.service';
 })
 export class ListComponent implements OnInit {
 
-  constructor(@Self() public list: ListService,
+  constructor(@Self() public list: UserList,
               @SkipSelf() public adminList: ListService) {
   }
 

@@ -14,4 +14,12 @@ export class ListService {
   public addItem(title: string) {
     this._items.push({ title })
   }
+
+  // just for the admin component
+  public logItems(){
+    console.group('admin component');
+    console.log(this.items);
+    console.groupEnd();
+  }
 }
+

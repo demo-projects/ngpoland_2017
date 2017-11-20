@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {NgModule, APP_INITIALIZER, APP_BOOTSTRAP_LISTENER} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -17,7 +17,11 @@ import {FLAG} from './http-logger/tokens';
     AppRoutingModule,
     HttpLoggerModule.setup(true),
   ],
-  providers: [],
+  providers: [{
+    provide: APP_BOOTSTRAP_LISTENER,
+    useValue: (cref) => console.log(cref),
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
